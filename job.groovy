@@ -37,6 +37,6 @@ import CommonJobProperties as commonJobProperties
 
 
       shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes' | gcloud container clusters update metrics --start-credential-rotation --zone=us-central1-a")
-      shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes' | gcloud container clusters update cluster-io-datastores --start-credential-rotation --zone=us-central1-a")
+      shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes' | gcloud container clusters update io-datastores --start-credential-rotation --zone=us-central1-a")
     }
   }

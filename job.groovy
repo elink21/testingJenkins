@@ -26,7 +26,7 @@ import CommonJobProperties as commonJobProperties
     description("Rotates Certificates and performs IP rotation for metrics and io-datastores")
 
     // Set common parameters.
-    commonJobProperties.setTopLevelMainJobProperties(delegate)
+    //commonJobProperties.setTopLevelMainJobProperties(delegate)
 
     // Sets that this is a cron job.
     commonJobProperties.setCronJob(delegate, 'H * * * *')

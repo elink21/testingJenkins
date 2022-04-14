@@ -16,23 +16,22 @@
  * limitations under the License.
  */
 
+import CommonJobProperties as commonJobProperties
+
 // These jobs list details about each beam runner, to clarify what software
 // is on each machine.
 
+  job("Rotate Clusters Credentials") {
+    description("Run inventory on ${machine}")
 
-job("Rotate clusters credentials") {
-    description("Performs an IP and credentials rotation on clusters 'metrics' and 'io-datastores'")
     // Set common parameters.
+    commonJobProperties.setTopLevelMainJobProperties(delegate)
+
     // Sets that this is a cron job.
+    commonJobProperties.setCronJob(delegate, '0 0 1 * *')
+ 
     steps {
-        shell("printf 'yes'| gcloud container clusters update metrics-upgrade-clone --zone=us-central1-a --maintenance-window=06:00")
-        shell("printf 'yes'| gcloud container clusters update cluster-io-datastores-clone --zone=us-central1-c --maintenance-window=06:00")
-
-
-        shell("printf 'yes' | gcloud container clusters update metrics-upgrade-clone --start-credential-rotation --zone=us-central1-a")
-        shell("printf 'yes' | gcloud container clusters update cluster-io-datastores-clone --start-credential-rotation --zone=us-central1-c")
-
+      shell('echo "Trigered"')
     }
+  }
 }
-
-

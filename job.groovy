@@ -32,11 +32,11 @@ import CommonJobProperties as commonJobProperties
     commonJobProperties.setCronJob(delegate, 'H 0 1 * *')
  
     steps {
-      shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes'| gcloud container clusters update metrics-upgrade-clone --zone=us-central1-a --maintenance-window=06:00")
-      shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes'| gcloud container clusters update cluster-io-datastores-clone --zone=us-central1-c --maintenance-window=06:00")
+      shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes'| gcloud container clusters update metrics --zone=us-central1-a --maintenance-window=06:00")
+      shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes'| gcloud container clusters update io-datastores --zone=us-central1-a --maintenance-window=06:00")
 
 
-      shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes' | gcloud container clusters update metrics-upgrade-clone --start-credential-rotation --zone=us-central1-a")
-      shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes' | gcloud container clusters update cluster-io-datastores-clone --start-credential-rotation --zone=us-central1-c")
+      shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes' | gcloud container clusters update metrics --start-credential-rotation --zone=us-central1-a")
+      shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes' | gcloud container clusters update cluster-io-datastores --start-credential-rotation --zone=us-central1-a")
     }
   }

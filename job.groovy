@@ -22,7 +22,7 @@ import CommonJobProperties as commonJobProperties
 // is on each machine.
 
   job("Rotate Clusters Credentials") {
-    description("Run inventory on ${machine}")
+    description("Rotates Certificates and performs IP rotation for metrics and io-datastores")
 
     // Set common parameters.
     commonJobProperties.setTopLevelMainJobProperties(delegate)

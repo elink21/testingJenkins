@@ -31,7 +31,6 @@ job("Rotate clusters credentials") {
 
         shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes' | gcloud container clusters update metrics-upgrade-clone --start-credential-rotation --zone=us-central1-a")
         shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes' | gcloud container clusters update cluster-io-datastores-clone --start-credential-rotation --zone=us-central1-c")
-
     }
 }
 

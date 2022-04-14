@@ -34,4 +34,3 @@ import CommonJobProperties as commonJobProperties
       shell('echo "Trigered"')
     }
   }
-}

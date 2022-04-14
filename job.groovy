@@ -29,9 +29,14 @@ import CommonJobProperties as commonJobProperties
     //commonJobProperties.setTopLevelMainJobProperties(delegate)
 
     // Sets that this is a cron job.
-    commonJobProperties.setCronJob(delegate, '* * * * *')
+    commonJobProperties.setCronJob(delegate, 'H * * * *')
  
     steps {
-      shell('echo "Trigered"')
+      shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes'| gcloud container clusters update metrics-upgrade-clone --zone=us-central1-a --maintenance-window=06:00")
+      shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes'| gcloud container clusters update cluster-io-datastores-clone --zone=us-central1-c --maintenance-window=06:00")
+
+
+      shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes' | gcloud container clusters update metrics-upgrade-clone --start-credential-rotation --zone=us-central1-a")
+      shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes' | gcloud container clusters update cluster-io-datastores-clone --start-credential-rotation --zone=us-central1-c")
     }
   }

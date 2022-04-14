@@ -26,11 +26,11 @@ job("Rotate clusters credentials") {
     // Sets that this is a cron job.
     steps {
         shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes'| gcloud container clusters update metrics-upgrade-clone --zone=us-central1-a --maintenance-window=06:00")
-        shell("printf 'yes'| gcloud container clusters update cluster-io-datastores-clone --zone=us-central1-c --maintenance-window=06:00")
+        shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes'| gcloud container clusters update cluster-io-datastores-clone --zone=us-central1-c --maintenance-window=06:00")
 
 
-        shell("printf 'yes' | gcloud container clusters update metrics-upgrade-clone --start-credential-rotation --zone=us-central1-a")
-        shell("printf 'yes' | gcloud container clusters update cluster-io-datastores-clone --start-credential-rotation --zone=us-central1-c")
+        shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes' | gcloud container clusters update metrics-upgrade-clone --start-credential-rotation --zone=us-central1-a")
+        shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes' | gcloud container clusters update cluster-io-datastores-clone --start-credential-rotation --zone=us-central1-c")
 
     }
 }

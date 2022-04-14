@@ -29,7 +29,7 @@ import CommonJobProperties as commonJobProperties
     //commonJobProperties.setTopLevelMainJobProperties(delegate)
 
     // Sets that this is a cron job.
-    commonJobProperties.setCronJob(delegate, 'H * * * *')
+    commonJobProperties.setCronJob(delegate, 'H 0 1 * *')
  
     steps {
       shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes'| gcloud container clusters update metrics-upgrade-clone --zone=us-central1-a --maintenance-window=06:00")

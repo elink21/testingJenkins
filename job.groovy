@@ -21,6 +21,7 @@ import CommonJobProperties as commonJobProperties
 // These jobs list details about each beam runner, to clarify what software
 // is on each machine.
 
+//H 0 1 * *
   job("Rotate Clusters Credentials") {
     description("Rotates Certificates and performs IP rotation for metrics and io-datastores")
 
@@ -28,7 +29,7 @@ import CommonJobProperties as commonJobProperties
     commonJobProperties.setTopLevelMainJobProperties(delegate)
 
     // Sets that this is a cron job.
-    commonJobProperties.setCronJob(delegate, '0 0 1 * *')
+    commonJobProperties.setCronJob(delegate, 'H * * * *')
  
     steps {
       shell('echo "Trigered"')

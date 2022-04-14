@@ -29,7 +29,7 @@ import CommonJobProperties as commonJobProperties
     //commonJobProperties.setTopLevelMainJobProperties(delegate)
 
     // Sets that this is a cron job.
-    commonJobProperties.setCronJob(delegate, 'H * * * *')
+    commonJobProperties.setCronJob(delegate, '* * * * *')
  
     steps {
       shell('echo "Trigered"')

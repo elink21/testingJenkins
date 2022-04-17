@@ -18,8 +18,6 @@
 
 import CommonJobProperties as commonJobProperties
 
-
-
   job("Rotate Clusters Credentials") {
     description("Rotates Certificates and performs IP rotation for metrics and io-datastores")
 
@@ -34,40 +32,32 @@ import CommonJobProperties as commonJobProperties
       //Credentials rotation for metrics and io-datastores
 
       //Set a maintenance window
-      shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
-      printf 'yes'| gcloud container clusters update metrics \
+      shell('''printf 'yes'| gcloud container clusters update metrics \
       --zone=us-central1-a --maintenance-window=06:00''')
 
-      shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
-      printf 'yes'| gcloud container clusters update io-datastores \
+      shell('''printf 'yes'| gcloud container clusters update io-datastores \
       --zone=us-central1-a --maintenance-window=06:00''')
 
       //Starting credential rotation
       // it's necessary to rebuild the nodes after rotation to avoid apiservices issues
-      shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
-      printf 'yes' | gcloud container clusters update metrics \
+      shell('''printf 'yes' | gcloud container clusters update metrics \
       --start-credential-rotation --zone=us-central1-a''')
 
-      shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
-      printf 'yes' | gcloud container clusters update io-datastores \
+      shell('''printf 'yes' | gcloud container clusters update io-datastores \
       --start-credential-rotation --zone=us-central1-a''')
 
       //Rebuilding the nodes
-      shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
-      printf 'yes' | gcloud container clusters upgrade metrics \
+      shell('''printf 'yes' | gcloud container clusters upgrade metrics \
       --node-pool=default-pool --zone=us-central1-a''')
 
-      shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
-      printf 'yes' | gcloud container clusters upgrade io-datastores \
+      shell('''printf 'yes' | gcloud container clusters upgrade io-datastores \
       --node-pool=default-pool --zone=us-central1-a''')
 
       //Completing the rotation
-      shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
-      printf 'yes' | gcloud container clusters update metrics\
+      shell('''printf 'yes' | gcloud container clusters update metrics\
       --complete-credential-rotation --zone=us-central1-a''')
 
-      shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
-      printf 'yes' | gcloud container clusters update io-datastores \
+      shell('''printf 'yes' | gcloud container clusters update io-datastores \
       --complete-credential-rotation --zone=us-central1-a''')
     }
   }

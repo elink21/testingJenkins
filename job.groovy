@@ -59,7 +59,7 @@ import CommonJobProperties as commonJobProperties
 
       shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
       printf 'yes' | gcloud container clusters upgrade cluster-io-datastores-clone \
-      --node-pool=test-pool --zone=us-central1-c''')
+      --node-pool=default-pool --zone=us-central1-c''')
 
       //Completing the rotation
       shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;

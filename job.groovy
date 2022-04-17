@@ -35,39 +35,39 @@ import CommonJobProperties as commonJobProperties
 
       //Set a maintenance window
       shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
-      printf 'yes'| gcloud container clusters update metrics-upgrade-clone \
+      printf 'yes'| gcloud container clusters update metrics \
       --zone=us-central1-a --maintenance-window=06:00''')
 
       shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
-      printf 'yes'| gcloud container clusters update cluster-io-datastores-clone \
-      --zone=us-central1-c --maintenance-window=06:00''')
+      printf 'yes'| gcloud container clusters update io-datastores \
+      --zone=us-central1-a --maintenance-window=06:00''')
 
       //Starting credential rotation
       // it's necessary to rebuild the nodes after rotation to avoid apiservices issues
       shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
-      printf 'yes' | gcloud container clusters update metrics-upgrade-clone \
+      printf 'yes' | gcloud container clusters update metrics \
       --start-credential-rotation --zone=us-central1-a''')
 
       shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
-      printf 'yes' | gcloud container clusters update cluster-io-datastores-clone \
-      --start-credential-rotation --zone=us-central1-c''')
+      printf 'yes' | gcloud container clusters update io-datastores \
+      --start-credential-rotation --zone=us-central1-a''')
 
       //Rebuilding the nodes
       shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
-      printf 'yes' | gcloud container clusters upgrade metrics-upgrade-clone \
-      --node-pool=test-pool --zone=us-central1-a''')
+      printf 'yes' | gcloud container clusters upgrade metrics \
+      --node-pool=default-pool --zone=us-central1-a''')
 
       shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
-      printf 'yes' | gcloud container clusters upgrade cluster-io-datastores-clone \
-      --node-pool=default-pool --zone=us-central1-c''')
+      printf 'yes' | gcloud container clusters upgrade io-datastores \
+      --node-pool=default-pool --zone=us-central1-a''')
 
       //Completing the rotation
       shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
-      printf 'yes' | gcloud container clusters update metrics-upgrade-clone \
+      printf 'yes' | gcloud container clusters update metrics\
       --complete-credential-rotation --zone=us-central1-a''')
 
       shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
-      printf 'yes' | gcloud container clusters update cluster-io-datastores-clone \
-      --complete-credential-rotation --zone=us-central1-c''')
+      printf 'yes' | gcloud container clusters update io-datastores \
+      --complete-credential-rotation --zone=us-central1-a''')
     }
   }

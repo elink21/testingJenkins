@@ -32,11 +32,25 @@ import CommonJobProperties as commonJobProperties
     commonJobProperties.setCronJob(delegate, 'H 0 1 * *')
  
     steps {
-      shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes'| gcloud container clusters update metrics-upgrade-clone --zone=us-central1-a --maintenance-window=06:00")
-      //shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes'| gcloud container clusters update io-datastores --zone=us-central1-a --maintenance-window=06:00")
+      //Set a maintenance window
+      shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
+      printf 'yes'| gcloud container clusters update metrics-upgrade-clone \
+      --zone=us-central1-a --maintenance-window=06:00''')
 
+      //Start the credential rotation, it's necessary to rebuild the nodes to avoid apiservices issues
+      shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
+      printf 'yes' | gcloud container clusters update metrics-upgrade-clone \
+      --start-credential-rotation --zone=us-central1-a''')
 
-      shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes' | gcloud container clusters update metrics-upgrade-clone --start-credential-rotation --zone=us-central1-a")
-      //shell("export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;printf 'yes' | gcloud container clusters update io-datastores --start-credential-rotation --zone=us-central1-a")
+      //Rebuilding the nodes
+      shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
+      printf 'yes' | gcloud container clusters upgrade metrics-upgrade-clone \
+      --node-pool=test-pool --zone=us-central1-a''')
+
+      //Completing the rotation
+      shell('''export PATH='/Users/elias.segundo/Documents/google-cloud-sdk/bin/:'$PATH;
+      printf 'yes' | gcloud container clusters update metrics-upgrade-clone \
+      --complete-credential-rotation --zone=us-central1-a''')
+
     }
   }

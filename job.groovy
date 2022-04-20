@@ -36,7 +36,7 @@ job('Rotate Cluster Credentials') {
     --zone=us-central1-a --maintenance-window=06:00 --quiet''')
 
     shell('''gcloud container clusters update cluster-io-datastores-clone \
-    --zone=us-central1-a --maintenance-window=06:00 --quiet''')
+    --zone=us-central1-c --maintenance-window=06:00 --quiet''')
 
     //Starting credential rotation
     // it's necessary to rebuild the nodes after rotation to avoid apiservices issues

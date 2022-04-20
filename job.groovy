@@ -18,46 +18,46 @@
 
 import CommonJobProperties as commonJobProperties
 
-  job("Rotate Clusters Credentials") {
-    description("Rotates Certificates and performs IP rotation for metrics and io-datastores")
+job('Rotate Cluster Credentials') {
+  description('Rotates Certificates and performs an IP rotation for metrics and io-datastores')
 
-    // Set common parameters.
-    //commonJobProperties.setTopLevelMainJobProperties(delegate)
+  // Set common parameters.
+  //commonJobProperties.setTopLevelMainJobProperties(delegate)
 
-    // Sets that this is a cron job.
-    commonJobProperties.setCronJob(delegate, 'H 2 1 */2 *')// At 00:02am every second month.
+  // Sets that this is a cron job.
+  commonJobProperties.setCronJob(delegate, 'H 2 1 */2 *')// At 00:02am every second month.
 
-    steps {
+  steps {
 
-      //Credentials rotation for metrics and io-datastores
+    //Credentials rotation for metrics and io-datastores
 
-      //Set a maintenance window
-      shell('''printf 'yes'| gcloud container clusters update metrics \
-      --zone=us-central1-a --maintenance-window=06:00''')
+    //Set a maintenance window
+    shell('''gcloud container clusters update metrics-upgrade-clone \
+    --zone=us-central1-a --maintenance-window=06:00 --quiet''')
 
-      shell('''printf 'yes'| gcloud container clusters update io-datastores \
-      --zone=us-central1-a --maintenance-window=06:00''')
+    shell('''gcloud container clusters update cluster-io-datastores-clone \
+    --zone=us-central1-a --maintenance-window=06:00 --quiet''')
 
-      //Starting credential rotation
-      // it's necessary to rebuild the nodes after rotation to avoid apiservices issues
-      shell('''printf 'yes' | gcloud container clusters update metrics \
-      --start-credential-rotation --zone=us-central1-a''')
+    //Starting credential rotation
+    // it's necessary to rebuild the nodes after rotation to avoid apiservices issues
+    shell('''gcloud container clusters update metrics-upgrade-clone \
+    --start-credential-rotation --zone=us-central1-a --quiet''')
 
-      shell('''printf 'yes' | gcloud container clusters update io-datastores \
-      --start-credential-rotation --zone=us-central1-a''')
+    shell('''gcloud container clusters update cluster-io-datastores-clone \
+    --start-credential-rotation --zone=us-central1-c --quiet''')
 
-      //Rebuilding the nodes
-      shell('''printf 'yes' | gcloud container clusters upgrade metrics \
-      --node-pool=default-pool --zone=us-central1-a''')
+    //Rebuilding the nodes
+    shell('''gcloud container clusters upgrade metrics-upgrade-clone \
+    --node-pool=default-pool --zone=us-central1-a --quiet''')
 
-      shell('''printf 'yes' | gcloud container clusters upgrade io-datastores \
-      --node-pool=default-pool --zone=us-central1-a''')
+    shell('''gcloud container clusters upgrade cluster-io-datastores-clone \
+    --node-pool=default-pool --zone=us-central1-c --quiet''')
 
-      //Completing the rotation
-      shell('''printf 'yes' | gcloud container clusters update metrics\
-      --complete-credential-rotation --zone=us-central1-a''')
+    //Completing the rotation
+    shell('''gcloud container clusters update metrics-upgrade-clone \
+    --complete-credential-rotation --zone=us-central1-a --quiet''')
 
-      shell('''printf 'yes' | gcloud container clusters update io-datastores \
-      --complete-credential-rotation --zone=us-central1-a''')
-    }
+    shell('''gcloud container clusters update cluster-io-datastores-clone \
+    --complete-credential-rotation --zone=us-central1-c --quiet''')
   }
+}

@@ -41,6 +41,8 @@ job('Rotate Cluster Credentials') {
             }
         }
 
+    shell('echo finish')
+
     // //Starting credential rotation
     // // it's necessary to rebuild the nodes after rotation to avoid apiservices issues
     // shell('''gcloud container clusters update metrics-upgrade-clone \

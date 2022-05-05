@@ -31,33 +31,36 @@ job('Rotate Cluster Credentials') {
 
     //Credentials rotation for metrics and io-datastores
 
-    //Set a maintenance window
-    shell('''gcloud container clusters update metrics-upgrade-clone \
-    --zone=us-central1-a --maintenance-window=06:00 --quiet''')
+    conditionalSteps {
+            condition {
+                shell('echo hello')
+            }
+            runner('Fail')
+            steps {
+                shell("echo 'just one step'")
+            }
+        }
 
-    shell('''gcloud container clusters update cluster-io-datastores-clone \
-    --zone=us-central1-c --maintenance-window=06:00 --quiet''')
+    // //Starting credential rotation
+    // // it's necessary to rebuild the nodes after rotation to avoid apiservices issues
+    // shell('''gcloud container clusters update metrics-upgrade-clone \
+    // --start-credential-rotation --zone=us-central1-a --quiet''')
 
-    //Starting credential rotation
-    // it's necessary to rebuild the nodes after rotation to avoid apiservices issues
-    shell('''gcloud container clusters update metrics-upgrade-clone \
-    --start-credential-rotation --zone=us-central1-a --quiet''')
+    // shell('''gcloud container clusters update cluster-io-datastores-clone \
+    // --start-credential-rotation --zone=us-central1-c --quiet''')
 
-    shell('''gcloud container clusters update cluster-io-datastores-clone \
-    --start-credential-rotation --zone=us-central1-c --quiet''')
+    // //Rebuilding the nodes
+    // shell('''gcloud container clusters upgrade metrics-upgrade-clone \
+    // --node-pool=default-pool --zone=us-central1-a --quiet''')
 
-    //Rebuilding the nodes
-    shell('''gcloud container clusters upgrade metrics-upgrade-clone \
-    --node-pool=default-pool --zone=us-central1-a --quiet''')
+    // shell('''gcloud container clusters upgrade cluster-io-datastores-clone \
+    // --node-pool=default-pool --zone=us-central1-c --quiet''')
 
-    shell('''gcloud container clusters upgrade cluster-io-datastores-clone \
-    --node-pool=default-pool --zone=us-central1-c --quiet''')
+    // //Completing the rotation
+    // shell('''gcloud container clusters update metrics-upgrade-clone \
+    // --complete-credential-rotation --zone=us-central1-a --quiet''')
 
-    //Completing the rotation
-    shell('''gcloud container clusters update metrics-upgrade-clone \
-    --complete-credential-rotation --zone=us-central1-a --quiet''')
-
-    shell('''gcloud container clusters update cluster-io-datastores-clone \
-    --complete-credential-rotation --zone=us-central1-c --quiet''')
+    // shell('''gcloud container clusters update cluster-io-datastores-clone \
+    // --complete-credential-rotation --zone=us-central1-c --quiet''')
   }
 }

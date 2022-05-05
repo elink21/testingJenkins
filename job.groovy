@@ -41,7 +41,10 @@ job('Rotate Cluster Credentials') {
             }
         }
 
+    shell('set -e')
     shell('echo finish')
+    shell('exit 1')
+    shell("echo 'second finish'")
 
     // //Starting credential rotation
     // // it's necessary to rebuild the nodes after rotation to avoid apiservices issues

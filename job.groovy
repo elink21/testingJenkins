@@ -32,9 +32,9 @@ job('Rotate Cluster Credentials') {
     //Credentials rotation for metrics and io-datastores
 
    shell("echo 'someround'")
-   shell("echo $?")
+   shell("echo \$?")
    shell("gcloud -x")
-   shell("echo $?")
+   shell("echo \$?")
 
     
 

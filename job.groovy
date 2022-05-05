@@ -31,20 +31,12 @@ job('Rotate Cluster Credentials') {
 
     //Credentials rotation for metrics and io-datastores
 
-    conditionalSteps {
-            condition {
-                shell('echo hello')
-            }
-            runner('Fail')
-            steps {
-                shell("echo 'just one step'")
-            }
-        }
+   shell("echo 'someround'")
+   shell("echo $?")
+   shell("gcloud -x")
+   shell("echo $?")
 
-    shell('set -e')
-    shell('echo finish')
-    shell('exit 1')
-    shell("echo 'second finish'")
+    
 
     // //Starting credential rotation
     // // it's necessary to rebuild the nodes after rotation to avoid apiservices issues

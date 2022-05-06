@@ -47,15 +47,17 @@ job('Rotate Cluster Credentials') {
     --complete-credential-rotation --zone=us-central1-a --quiet''')
     // shell('''gcloud container clusters update cluster-io-datastores-clone \
     // --complete-credential-rotation --zone=us-central1-c --quiet''')
+    
   }
 
   def date = new Date().format('E MMM dd HH:mm:ss z yyyy')
+  def url= job.getAbsoluteUrl()
   publishers {
       extendedEmail {
           triggers {
               failure {
                   subject('Credentials Rotation Failure on Metrics cluster')
-                  content("Something went wrong during the credentials rotation for Metrics Cluster, performed at (${date}). Further details can be found at ${JOB_NAME} #${BUILD_NUMBER} ${BUILD_URL}")
+                  content("Something went wrong during the credentials rotation for Metrics Cluster, performed at (${date}). Further details can be found at ${JOB_NAME} #${BUILD_NUMBER} ${url}")
                   recipientList('elias.segundo@wizeline.com')
                 }
             }

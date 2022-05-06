@@ -51,13 +51,12 @@ job('Rotate Cluster Credentials') {
   }
 
   def date = new Date().format('E MMM dd HH:mm:ss z yyyy')
-  def url= job.getAbsoluteUrl()
   publishers {
       extendedEmail {
           triggers {
               failure {
                   subject('Credentials Rotation Failure on Metrics cluster')
-                  content("Something went wrong during the credentials rotation for Metrics Cluster, performed at (${date}). Further details can be found at ${JOB_NAME} #${BUILD_NUMBER} ${url}")
+                  content("Something went wrong during the credentials rotation for Metrics Cluster, performed at (${date}). Further details can be found at ${JOB_NAME} #${BUILD_NUMBER} ${RUN_DISPLAY_URL} ")
                   recipientList('elias.segundo@wizeline.com')
                 }
             }

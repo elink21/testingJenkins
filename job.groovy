@@ -49,14 +49,14 @@ job('Rotate Cluster Credentials') {
     // --complete-credential-rotation --zone=us-central1-c --quiet''')
   }
 
-  def date = new Date().format('yyyy-MM-dd')
+  def date = new Date().format('E MMM dd HH:mm:ss z yyyy')
   publishers {
       extendedEmail {
           triggers {
               failure {
                   subject('Credentials Rotation Failure on Metrics cluster')
                   content("Something went wrong during the credentials rotation for Metrics Cluster, performed at (${date}). Further details can be found at ${BUILD_URL} (\${BUILD_LOG, maxLines=99, escapeHtml=false})")
-                  recipientList('elias.segundo@wizeline.com','daniela.martin@wizeline.com')
+                  recipientList('elias.segundo@wizeline.com')
                 }
             }
         }

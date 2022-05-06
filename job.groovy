@@ -32,8 +32,8 @@ job('Rotate Cluster Credentials') {
     //Credentials rotation for metrics and io-datastores
     // //Starting credential rotation
     // // it's necessary to rebuild the nodes after rotation to avoid apiservices issues
-     shell('''gcloud container clusters update metrics-upgrade-clone \
-     --start-credential-rotation --zone=us-central1-a --quiet''')
+    //  shell('''gcloud container clusters update metrics-upgrade-clone \
+    //  --start-credential-rotation --zone=us-central1-a --quiet''')
 
     // //Rebuilding the nodes
     // shell('''gcloud container clusters upgrade metrics-upgrade-clone \
@@ -43,8 +43,24 @@ job('Rotate Cluster Credentials') {
     // --node-pool=default-pool --zone=us-central1-c --quiet''')
 
     // //Completing the rotation
-    shell('''gcloud container clusters update metrics-upgrade-clone \
+    shell('''gcloud container ccc clusters update metrics-upgrade-clone \
     --complete-credential-rotation --zone=us-central1-a --quiet''')
+
+    publishers {
+        extendedEmail {
+            recipientList('eliassegundo.segundo@gmail.com')
+            defaultSubject('Oops')
+            defaultContent('Something broken')
+            contentType('text/html')
+            triggers {
+                failure {
+                    subject('Failure')
+                    content('Failure')
+                    recipientList('eliassegundo.segundo@gmail.com')
+                }
+            }
+        }
+    }
 
     // shell('''gcloud container clusters update cluster-io-datastores-clone \
     // --complete-credential-rotation --zone=us-central1-c --quiet''')

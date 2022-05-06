@@ -45,24 +45,20 @@ job('Rotate Cluster Credentials') {
     // //Completing the rotation
     shell('''gcloud container ccc clusters update metrics-upgrade-clone \
     --complete-credential-rotation --zone=us-central1-a --quiet''')
+    // shell('''gcloud container clusters update cluster-io-datastores-clone \
+    // --complete-credential-rotation --zone=us-central1-c --quiet''')
+  }
 
-    publishers {
-        extendedEmail {
-            recipientList('eliassegundo.segundo@gmail.com')
-            defaultSubject('Oops')
-            defaultContent('Something broken')
-            contentType('text/html')
-            triggers {
-                failure {
-                    subject('Failure')
-                    content('Failure')
-                    recipientList('eliassegundo.segundo@gmail.com')
+  def date = new Date().format('yyyy-MM-dd')
+  publishers {
+      extendedEmail {
+          triggers {
+              failure {
+                  subject('Credentials Rotation Failure on Metrics cluster')
+                  content("Something went wrong during the credentials rotation for Metrics performed at (${date}), further details can be found on (${BUILD_URL})")
+                  recipientList('eliassegundo.segundo@gmail.com')
                 }
             }
         }
     }
-
-    // shell('''gcloud container clusters update cluster-io-datastores-clone \
-    // --complete-credential-rotation --zone=us-central1-c --quiet''')
-  }
 }

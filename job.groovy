@@ -57,7 +57,7 @@ job('Rotate Cluster Credentials') {
           triggers {
               failure {
                   subject('Credentials Rotation Failure on Metrics cluster')
-                  content("Something went wrong during the credentials rotation for Metrics Cluster, performed at ${date}. It may be necessary to check the status of the Cluster certificates. For further details refer to the following links:\n ${JOB_URL} \n ${JENKINS_URL}.")
+                  content("Something went wrong during the credentials rotation for Metrics Cluster, performed at ${date}. It may be necessary to check the status of the Cluster certificates. For further details refer to the following links:\n * ${JOB_URL} \n * ${JENKINS_URL}.")
                   recipientList('elias.segundo@wizeline.com')
                 }
             }

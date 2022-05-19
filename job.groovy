@@ -25,8 +25,9 @@ job('Rotate Cluster Credentials') {
   //commonJobProperties.setTopLevelMainJobProperties(delegate)
 
   // Sets that this is a cron job.
-  commonJobProperties.setCronJob(delegate, 'H 2 1 */2 *')// At 00:02am every second month.
+  //commonJobProperties.setCronJob(delegate, 'H 2 1 */2 *')// At 00:02am every second month.
   def date = new Date().format('E MMM dd HH:mm:ss z yyyy')
+  def x= shell("echo something")
 
 
   steps {
@@ -45,22 +46,9 @@ job('Rotate Cluster Credentials') {
     // --node-pool=default-pool --zone=us-central1-c --quiet''')
 
     // //Completing the rotation
-    shell('''gcloud container ccc clusters update metrics-upgrade-clone \
-    --complete-credential-rotation --zone=us-central1-a --quiet''')
+    shell("echo ${x}")
     // shell('''gcloud container clusters update cluster-io-datastores-clone \
     // --complete-credential-rotation --zone=us-central1-c --quiet''')
     
   }
-
-  publishers {
-      extendedEmail {
-          triggers {
-              failure {
-                  subject('Credentials Rotation Failure on Metrics cluster')
-                  content("Something went wrong during the credentials rotation for Metrics Cluster, performed at ${date}. It may be necessary to check the status of the Cluster certificates. For further details refer to the following links:\n * ${JOB_URL} \n * ${JENKINS_URL}.")
-                  recipientList('elias.segundo@wizeline.com')
-                }
-            }
-        }
-    }
 }

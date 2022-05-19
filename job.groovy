@@ -29,7 +29,7 @@ job('Rotate Cluster Credentials') {
   def date = new Date().format('E MMM dd HH:mm:ss z yyyy')
   build = Thread.currentThread().executable
  
-  def X = env.OS
+  def X = sh(script: "date", returnStdout: true).toString().trim()
 
   steps {
 

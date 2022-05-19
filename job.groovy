@@ -27,12 +27,10 @@ job('Rotate Cluster Credentials') {
   // Sets that this is a cron job.
   //commonJobProperties.setCronJob(delegate, 'H 2 1 */2 *')// At 00:02am every second month.
   def date = new Date().format('E MMM dd HH:mm:ss z yyyy')
-  build = Thread.currentThread().executable
  
-  def X = sh(script: "date", returnStdout: true).toString().trim()
 
   steps {
-
+    def X = sh(script: "echo hello", returnStdout: true).trim()
     //Credentials rotation for metrics and io-datastores
     // //Starting credential rotation
     // // it's necessary to rebuild the nodes after rotation to avoid apiservices issues

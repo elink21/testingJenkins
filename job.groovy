@@ -27,7 +27,7 @@ job('Rotate Cluster Credentials') {
   // Sets that this is a cron job.
   //commonJobProperties.setCronJob(delegate, 'H 2 1 */2 *')// At 00:02am every second month.
   def date = new Date().format('E MMM dd HH:mm:ss z yyyy')
-  def X = getBinding().getVariables()['OS']
+  def X = "hello"
 
 
 

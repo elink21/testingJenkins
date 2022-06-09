@@ -22,10 +22,10 @@ job('Rotate Cluster Credentials') {
   description('Rotates Certificates and performs an IP rotation for metrics and io-datastores')
 
   // Set common parameters.
-  //commonJobProperties.setTopLevelMainJobProperties(delegate)
+  commonJobProperties.setTopLevelMainJobProperties(delegate)
 
   // Sets that this is a cron job.
-  //commonJobProperties.setCronJob(delegate, 'H 2 1 */2 *')// At 00:02am every second month.
+  commonJobProperties.setCronJob(delegate, '0 */6 * * *')// At 00:02am every second month.
   def date = new Date().format('E MMM dd HH:mm:ss z yyyy')
  
 

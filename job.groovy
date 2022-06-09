@@ -30,7 +30,7 @@ job('Rotate Cluster Credentials') {
  
 
   steps {
-    def X = sh(script: "echo hello", returnStdout: true).trim()
+
     //Credentials rotation for metrics and io-datastores
     // //Starting credential rotation
     // // it's necessary to rebuild the nodes after rotation to avoid apiservices issues
@@ -45,7 +45,7 @@ job('Rotate Cluster Credentials') {
     // --node-pool=default-pool --zone=us-central1-c --quiet''')
 
     // //Completing the rotation
-    shell("echo ${X}")
+    shell("echo testing")
     // shell('''gcloud container clusters update cluster-io-datastores-clone \
     // --complete-credential-rotation --zone=us-central1-c --quiet''')
     
